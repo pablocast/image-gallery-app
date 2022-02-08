@@ -4,9 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+
+const links = ["https://bit.ly/3lmYVna", "https://bit.ly/3flyaMj", "https://bit.ly/3flyaMj"]
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App links={links}/>
   </React.StrictMode>,
   document.getElementById('root')
 );

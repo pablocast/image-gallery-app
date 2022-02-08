@@ -1,23 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
 
-function App() {
+
+function App(props) {
+  let [visible, setVisible] = useState(props.links.map((link) => true));
+  const remove = (idx) => {
+    let current = visible
+    current[idx] = false
+    setVisible([...current])
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {visible.map((isVisible, idx) => {
+        return (
+          isVisible ?
+            <div className="image" key={idx}>
+              <img src={props.links[idx]} />
+              <button className="remove" onClick={() => remove(idx)}>X</button>
+            </div> : null
+        )
+      }
+      )
+      }
     </div>
   );
 }
