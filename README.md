@@ -26,4 +26,4 @@ For example, after the first image has been removed from the gallery above, it's
     <button class="remove">X</button>
   </div>
 </div>
-<!-->
+<!--> 

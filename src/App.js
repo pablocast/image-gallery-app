@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect, Fragment } from 'react';
 
 
 function App(props) {
@@ -26,4 +26,77 @@ function App(props) {
   );
 }
 
-export default App;
+const FocusableInput = (props) => {
+
+  const inputRef = useRef();
+
+  useEffect(() => {
+    if (props.shouldFocus) {
+      inputRef.current.focus();
+    }
+  })
+
+  // Write your code here
+  return <input ref={inputRef} />;
+};
+
+
+const Message = (props) => {
+  const [showResults, setShowResults] = useState(false)
+  const onClick = () => {
+    showResults ? setShowResults(false):setShowResults(true)
+  }
+  return (
+  <Fragment>
+    <a href="#" onClick={()=> onClick()}>Want to buy a new car?</a>
+    {showResults ? <p>Call +11 22 33 44 now!</p> : null}
+  </Fragment>
+  );
+}
+
+
+
+const Title = props => {
+  const { text } = props;
+
+  return (
+      <h1 >
+        {text}
+      </h1>
+  );
+}
+
+
+const TodoItem = (props) => <li onClick={props.onClick}>{props.item.text}</li>
+
+class TodoList extends React.Component {
+  render() {
+    const { items, onListClick} = this.props;
+    return (<ul onClick={onListClick}>
+      {items.map((item, index) => 
+                 <TodoItem item={item} key={index} onClick={this.handleItemClick.bind(this, item)}/>)}
+    </ul>);
+  }
+  
+  handleItemClick(item, event) {
+    const onItemClick = this.props["onItemClick"];
+    if (!item.done) {
+      onItemClick(item,event)
+  } else {
+      event.stopPropagation();
+    }
+  }
+}
+
+
+const   ToDoApp = (props) => <TodoList
+  items={props.items}
+  onListClick={(event) => console.log("List clicked!")}
+  onItemClick={(item, event) => { console.log(item, event) }}
+/>;
+
+
+
+
+
+export { App, FocusableInput, Title, Message, ToDoApp };
