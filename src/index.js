@@ -1,14 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { App, FocusableInput, Title, Message, ToDoApp} from './App';
+import { App, FocusableInput, Title, Message, ToDoApp, GroceryApp, ChangeUserNameApp} from './App';
 import reportWebVitals from './reportWebVitals';
 
 
-const links = ["https://bit.ly/3lmYVna", "https://bit.ly/3flyaMj", "https://bit.ly/3flyaMj"]
+const links = ["https://bit.ly/3lmYVna", "https://bit.ly/3flyaMj", "https://bit.ly/3flyaMj"];
 const items = [ { text: 'Buy grocery', done: true },
   { text: 'Play guitar', done: false },
   { text: 'Romantic dinner', done: false }
+];
+const products= [
+  { name: "Oranges", votes: 0 },
+  { name: "Bananas", votes: 0 }
 ];
 
 ReactDOM.render(
@@ -21,6 +25,10 @@ ReactDOM.render(
     <Message />
     <Title text ={"Exercisio: ToDoApp"} />
     <ToDoApp items={items} />
+    <Title text ={"Exercisio: GroceryApp"} />
+    <GroceryApp products={products} />
+    <Title text ={"Exercisio:ChangeUserName"} />
+    <ChangeUserNameApp products={products} />
   </React.StrictMode>,
   document.getElementById('root')
 );

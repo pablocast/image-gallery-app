@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState, useRef, useEffect, Fragment } from 'react';
+import React, { Component,useState, useRef, useEffect, Fragment } from 'react';
 
 
 function App(props) {
@@ -96,7 +96,73 @@ const   ToDoApp = (props) => <TodoList
 />;
 
 
+const Product = props => {
+  const plus = () => {
+    props.onVote(+1, props.index)
+  };
+  const minus = () => {
+    props.onVote(-1, props.index)
+  };
+  return (
+    <li>
+      <span>{props.name}</span> - <span>votes: {props.votes}</span>
+      <button onClick={plus}>+</button>{" "}
+      <button onClick={minus}>-</button>
+    </li>
+  );
+};
+
+const GroceryApp = (props) => {
+  let [products, setProducts] = useState(props.products);
+  const onVote = (dir, index) => {
+    let items = [...products]
+    let product = {...items[index]}
+    product.votes += dir
+    items[index] = product
+    setProducts([...items])
+  };
+
+  return products.map( (product,idx) => {
+    return (       
+    <ul key={idx}>
+      <Product {...product} onVote={onVote} index={idx}/>
+    </ul>
+      )
+  });
+}
+
+class Username extends Component {
+  state = { value: "" };
+
+  changeValue(value) {
+    this.setState({ value });
+  }
+
+  render() {
+    const { value } = this.state;
+    return <h1> {value}</h1>;
+  }
+}
+
+function ChangeUserNameApp() {
+  const [userName, setUserName] = useState('')
+  const oldUserNameRef = useRef('')
+  function clickHandler() { 
+    setUserName(oldUserNameRef.current.value)
+  }
+
+  return (
+    <div>
+      <button onClick={clickHandler}>Change Username</button>
+      <input type="text"  ref={oldUserNameRef}/>
+      {
+        userName ? 
+        <h1>{userName}</h1>:
+        <Username />
+      }
+    </div> 
+  );
+}
 
 
-
-export { App, FocusableInput, Title, Message, ToDoApp };
+export { App, FocusableInput, Title, Message, ToDoApp, GroceryApp, ChangeUserNameApp };
