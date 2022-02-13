@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { App, FocusableInput, Title, Message, ToDoApp, GroceryApp, ChangeUserNameApp} from './App';
+import { App, FocusableInput, Title, Message, ToDoApp, GroceryApp, ChangeUserNameApp, ControlsComponent, FocusableInputApp} from './App';
 import reportWebVitals from './reportWebVitals';
 
 
@@ -29,6 +29,10 @@ ReactDOM.render(
     <GroceryApp products={products} />
     <Title text ={"Exercisio:ChangeUserName"} />
     <ChangeUserNameApp products={products} />
+    <Title text ={"Exercisio:LogOutWrapper"} />
+    <ControlsComponent username="James" />
+    <Title text ={"Exercisio:Focusable Input"} />
+    <FocusableInputApp focused={true} />
   </React.StrictMode>,
   document.getElementById('root')
 );

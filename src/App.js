@@ -164,5 +164,65 @@ function ChangeUserNameApp() {
   );
 }
 
+const SecurityContext = React.createContext({ username: "", permissions: [] });
 
-export { App, FocusableInput, Title, Message, ToDoApp, GroceryApp, ChangeUserNameApp };
+const ControlsComponent = (props) => {
+  return (
+    <SecurityContext.Provider value={{ username: props.username }}>
+      <LogoutWrapper></LogoutWrapper>
+    </SecurityContext.Provider>
+  );
+};
+
+const LogoutWrapper = (props) => {
+  var context = React.useContext(SecurityContext);
+  
+  return (
+    <div>
+      <p>{context.username}</p>
+      <button>Click here to logout</button>
+    </div>
+  );
+};
+
+
+class Input extends React.PureComponent {
+  render() {
+    let {forwardedRef, ...otherProps} = this.props; 
+    return <input {...otherProps} ref={forwardedRef} />;
+  }
+}
+
+const TextInput = React.forwardRef((props, ref) => {
+  return <Input {...props} forwardedRef={ref} />
+});
+
+class FocusableInputApp extends React.Component {
+  
+  ref = React.createRef()
+
+  render() {
+    return <TextInput ref={this.ref} />;
+  }
+
+  componentDidUpdate(prevProps) {
+    let {focused} = this.props; 
+    if (focused !== prevProps.focused ) {
+      this.ref.current.focus();
+    }
+  }
+  
+  componentDidMount() {
+    let {focused} = this.props; 
+    if (focused){
+      this.ref.current.focus();
+    }
+  }
+}
+
+FocusableInputApp.defaultProps = {
+  focused: false
+};
+
+
+export { App, FocusableInput, Title, Message, ToDoApp, GroceryApp, ChangeUserNameApp, ControlsComponent, FocusableInputApp};
